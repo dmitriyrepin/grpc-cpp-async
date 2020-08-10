@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package dgr;
+
+service Pinger {
+  rpc Ping (PingRequest) returns (PingReply) {}
+}
+
+message PingRequest {
+  string name = 1;
+  int32 delay_msec = 2;
+}
+
+message PingReply {
+  string message = 1;
+}

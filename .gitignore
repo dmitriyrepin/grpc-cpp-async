@@ -1,3 +1,17 @@
+# Ignore CMake artifacts and generated binaries
+/bin
+/cmake
+/build
+
+# Generated GRPC files
+*.pb.h
+*.pb.cc
+*.grpc.pb.h
+*.grpc.pb.cc
+
+# Core files
+core.*
+
 # Prerequisites
 *.d
 
@@ -11,7 +25,7 @@
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
+# Compiled Dynamic libraries and executables
 *.so
 *.dylib
 *.dll
@@ -30,3 +44,12 @@
 *.exe
 *.out
 *.app
+
+# Profiling and code coverage
+coverage.*
+*.lcov
+*.gcno
+*.gcda 
+
+# Misc
+*.tgz

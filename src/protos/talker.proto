@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package dgr;
+
+service Talker {
+  rpc ShortHello (ShortHelloRequest) returns (ShortHelloReply) {}
+  rpc LongBye (LongByeRequest) returns (LongByeReply) {}
+}
+
+message ShortHelloRequest {
+  string name = 1;
+}
+
+message ShortHelloReply {
+  string message = 1;
+}
+
+message LongByeRequest {
+  string name = 1;
+  int32 ping_delay_msec = 2;
+  bool use_async_ping = 3;
+}
+
+message LongByeReply {
+  string message = 1;
+}
+

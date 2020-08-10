@@ -1,0 +1,48 @@
+{
+    "tasks": [
+        {
+            "label": "Build - Debug",
+            "type": "shell",
+            "command": "/opt/grpc-cpp-async/automation/build.sh",
+            "args": [
+                "Debug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build - Release",
+            "type": "shell",
+            "command": "/opt/grpc-cpp-async/automation/build.sh",
+            "args": [
+                "Release"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build - clean",
+            "type": "shell",
+            "command": "/opt/grpc-cpp-async/automation/build.sh",
+            "args": [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ],
+    "version": "2.0.0"
+}

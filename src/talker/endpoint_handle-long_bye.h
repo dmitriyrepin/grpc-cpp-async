@@ -12,13 +12,13 @@ namespace dgr {
 class EndpointHandle_LongBye : public EndpointHandle {
  public:
   EndpointHandle_LongBye(dgr::Talker::AsyncService* service, grpc::ServerCompletionQueue* cq,  //
-                         PingerClient* pinger_client, PingerClientAsync* pinger_client_async)
+                         const std::string& ping_host_port)
       : EndpointHandle(service, cq),
         request_(),
         reply_(),
         responder_(&ctx_),
-        pinger_("localhost:50062"),
-        pinger_async_("localhost:50062", cq) {}
+        pinger_(ping_host_port),
+        pinger_async_(ping_host_port, cq) {}
 
   void on_create(QueueTag* tag) override {
     service_->RequestLongBye(&ctx_, &request_, &responder_, cq_, cq_, tag);
@@ -56,19 +56,16 @@ class EndpointHandle_LongBye : public EndpointHandle {
 
 class LongByeCreator : public EndpointHandleCreator {
  public:
-  LongByeCreator(const std::string& ping_host_port, grpc::ServerCompletionQueue* cq) {
-    pinger_async_.reset(new PingerClientAsync(ping_host_port, cq));
-    // pinger_.reset(new PingerClient(ping_host_port));
-  }
+  LongByeCreator(const std::string& ping_host_port, grpc::ServerCompletionQueue* cq)
+      : ping_host_port_(ping_host_port) {}
 
   EndpointHandle* create_instance(dgr::Talker::AsyncService* service,  //
                                   grpc::ServerCompletionQueue* cq) override {
-    return new EndpointHandle_LongBye(service, cq, pinger_.get(), pinger_async_.get());
+    return new EndpointHandle_LongBye(service, cq, ping_host_port_);
   }
 
  private:
-  std::unique_ptr<PingerClient> pinger_;
-  std::unique_ptr<PingerClientAsync> pinger_async_;
+  std::string ping_host_port_;
 };
 
 }  // namespace dgr
